@@ -68,7 +68,7 @@ minetest.register_node("ehlphabet:block", {
 minetest.register_craft({ output = "ehlphabet:block 8",
   recipe = {
     {'default:paper', 'default:paper', 'default:paper'},
-    {'default:paper', 'default:paper', 'default:paper'},
+    {'default:paper', '', 'default:paper'},
     {'default:paper', 'default:paper', 'default:paper'},
   }
 })
