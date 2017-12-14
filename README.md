@@ -6,4 +6,5 @@ Letter blocks can be created with the Letter Machine or given with /giveme ehlph
 Example: '/giveme ehlphabet:65' will give you a block with the letter 'A' on it.  
 http://www.asciitable.com/  
   
-Textures were created using Title Wave font by Digital Graphic Labs and are licensed under CC-BY-SA 3.0
+Textures were created using Title Wave font by Digital Graphic Labs  
+Textures are licensed under CC-BY-SA 3.0
