@@ -11,9 +11,8 @@ for _, name in ipairs(characters) do --do this for all characters in the list
    minetest.register_node("ehlphabet:"..byte, {
       description = "Ehlphabet Block \'"..name.."\'",
       tiles = {"ehlphabet_"..file..".png"},
-      groups = {cracky=3}
+      groups = {cracky=3,not_in_creative_inventory=1,not_in_crafting_guide=1}
    })
-  -- uncomment this line to revert written blocks to blank blocks 
   minetest.register_craft ({ type="shapeless", output = "ehlphabet:block", recipe = {"ehlphabet:"..byte} })
 end
 
