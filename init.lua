@@ -88,9 +88,9 @@ minetest.register_craft({ output = "ehlphabet:block 8",
 --RECIPE: build the machine!
 minetest.register_craft({ output = "ehlphabet:machine",
   recipe = {
-    {'default:stick', '', 'default:stick'},
+    {'default:stick', 'default:coal_lump', 'default:stick'},
     {'default:coal_lump', 'ehlphabet:block', 'default:coal_lump'},
-    {'default:paper', '', 'default:paper'},
+    {'default:stick', 'default:coal_lump', 'default:stick'},
   }
 })
 
