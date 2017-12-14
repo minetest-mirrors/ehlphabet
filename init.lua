@@ -22,6 +22,18 @@ minetest.register_node("ehlphabet:machine", {
    paramtype = "light",
    groups = {cracky=2},
    
+   can_dig = function(pos, player)                                                    -- "Can you dig it?" -Cyrus
+     local meta = minetest.env:get_meta(pos)
+     local inv = meta:get_inventory()
+     if not inv:is_empty("input") or not inv:is_empty("output") then
+       if player then
+         minetest.chat_send_player(player:get_player_name(), "You cannot dig the Letter Machine with blocks inside")
+       end                                                                            -- end if player
+       return false
+     end                                                                              -- end if not empty
+     return true
+   end,                                                                               -- end can_dig function
+   
    after_place_node = function(pos, placer)
       local meta = minetest.env:get_meta(pos)
    end,
@@ -59,7 +71,7 @@ minetest.register_node("ehlphabet:machine", {
 })
 
 minetest.register_node("ehlphabet:block", {
-  description = "Blank Ehlphabet Block",
+  description = "Ehlphabet Block (blank)",
   tiles = {"ehlphabet_000.png"},
   groups = {cracky=3},
 })
