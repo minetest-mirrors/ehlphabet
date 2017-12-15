@@ -18,7 +18,8 @@ end
 
 minetest.register_node("ehlphabet:machine", {
    description = "Letter Machine",
-   tiles = {"ehlphabet_machine.png"},
+   tiles = {"ehlphabet_machine_top.png", "ehlphabet_machine_bottom.png", "ehlphabet_machine_side.png",
+            "ehlphabet_machine_side.png", "ehlphabet_machine_back.png", "ehlphabet_machine_front.png"},
    paramtype = "light",
    groups = {cracky=2},
    
