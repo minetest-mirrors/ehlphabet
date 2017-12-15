@@ -21,6 +21,7 @@ minetest.register_node("ehlphabet:machine", {
    tiles = {"ehlphabet_machine_top.png", "ehlphabet_machine_bottom.png", "ehlphabet_machine_side.png",
             "ehlphabet_machine_side.png", "ehlphabet_machine_back.png", "ehlphabet_machine_front.png"},
    paramtype = "light",
+   paramtype2 = "facedir",
    groups = {cracky=2},
    
    can_dig = function(pos, player)                                                    -- "Can you dig it?" -Cyrus
