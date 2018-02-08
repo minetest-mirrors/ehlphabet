@@ -8,3 +8,8 @@ http://www.asciitable.com/
   
 Textures were created using Title Wave font by Digital Graphic Labs  
 Textures are licensed under CC-BY-SA 3.0
+
+
+20180124
+patched by Och_Noe to use it as replacement for abjphabet
+(create aliases)
