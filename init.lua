@@ -1,5 +1,12 @@
 local characters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0","!","#","$","%","&","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@"}
 
+--  Alias  (Och_Noe 20180124)
+local compat_characters = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0"}  -- for reference, unused  
+--
+
+--  Alias  (Och_Noe 20180124)
+create_alias = true  
+--
 
 for _, name in ipairs(characters) do --do this for all characters in the list
    local byte = string.byte(name)
@@ -14,7 +21,16 @@ for _, name in ipairs(characters) do --do this for all characters in the list
       groups = {cracky=3,not_in_creative_inventory=1,not_in_crafting_guide=1}
    })
   minetest.register_craft ({ type="shapeless", output = "ehlphabet:block", recipe = {"ehlphabet:"..byte} })
+  if name == "!" then create_alias = false end
+
+--  Alias  (Och_Noe 20180124)
+  if create_alias then
+     minetest.register_alias("abjphabet:"..name:lower(),"ehlphabet:"..byte)
+  end
+--
+
 end
+
 
 minetest.register_node("ehlphabet:machine", {
    description = "Letter Machine",
@@ -71,6 +87,11 @@ minetest.register_node("ehlphabet:machine", {
       end   
    end
 })
+
+
+--  Alias  (Och_Noe 20180124)
+minetest.register_alias("abjphabet:machine","ehlphabet:machine")
+--
 
 minetest.register_node("ehlphabet:block", {
   description = "Ehlphabet Block (blank)",
