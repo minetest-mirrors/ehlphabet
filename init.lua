@@ -18,6 +18,10 @@ local characters = {}
 ehlphabet = {}
 ehlphabet.path = minetest.get_modpath(minetest.get_current_modname())
 
+-- Intllib
+local S, NS = dofile(ehlphabet.path .. "/intllib.lua")
+ehlphabet.intllib = S
+
 local function table_merge(t1, t2)
     for k, v in ipairs(t2) do
        table.insert(t1, v)
@@ -40,7 +44,7 @@ local create_alias = true
 
 -- generate all available blocks
 for _, name in ipairs(characters) do
-    local desc = "The '" .. name .. "' Character"
+    local desc = S("Ehlphabet Block '@1'", name)
     local byte = name:byte()
     local mb = is_multibyte(name)
     local file, key
@@ -58,7 +62,7 @@ for _, name in ipairs(characters) do
     minetest.register_node(
         key,
         {
-            description = "Ehlphabet Block '" .. name .. "'",
+            description = desc,
             tiles = {"ehlphabet_" .. file .. ".png"},
             groups = {cracky = 3, not_in_creative_inventory = 1, not_in_crafting_guide = 1}
         }
@@ -78,7 +82,7 @@ end
 minetest.register_node(
     "ehlphabet:machine",
     {
-        description = "Letter Machine",
+        description = S("Letter Machine"),
         tiles = {
             "ehlphabet_machine_top.png",
             "ehlphabet_machine_bottom.png",
@@ -99,7 +103,7 @@ minetest.register_node(
                 if player then
                     minetest.chat_send_player(
                         player:get_player_name(),
-                        "You cannot dig the Letter Machine with blocks inside"
+                        S("You cannot dig the @1 with blocks inside", S("Letter Machine"))
                     )
                 end -- end if player
                 return false
@@ -116,11 +120,11 @@ minetest.register_node(
             meta:set_string(
                 "formspec",
                 "invsize[8,6;]" ..
-                "field[3.8,.5;1,1;lettername;Letter;]" ..
+                "field[3.8,.5;1,1;lettername;" .. S("Letter") .. ";]" ..
                 "list[current_name;input;2.5,0.2;1,1;]" ..
                 "list[current_name;output;4.5,0.2;1,1;]" ..
                 "list[current_player;main;0,2;8,4;]" ..
-                "button[2.54,-0.25;3,4;name;Blank -> Letter]"
+                "button[2.54,-0.25;3,4;name;" .. S("Blank -> Letter") .. "]"
             )
             local inv = meta:get_inventory()
             inv:set_size("input", 1)
@@ -157,7 +161,7 @@ minetest.register_alias("abjphabet:machine", "ehlphabet:machine")
 minetest.register_node(
     "ehlphabet:block",
     {
-        description = "Ehlphabet Block (blank)",
+        description = S("Ehlphabet Block (blank)"),
         tiles = {"ehlphabet_000.png"},
         groups = {cracky = 3}
     }
@@ -189,3 +193,5 @@ minetest.register_craft({
     recipe = {"ehlphabet:block"},
     type = "shapeless"
 })
+
+-- print(S("[MOD] Elphabet is loaded"))
