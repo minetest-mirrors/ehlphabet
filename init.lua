@@ -7,6 +7,7 @@ local special_chars = {
     "!", "#", "$", "%", "&", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";",
     "<", "=", ">", "?", "@", "'", '"'
 }
+local german_chars = {"Ä", "Ö", "Ü", "ß"}
 local cyrillic_chars = {
     "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н",
     "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь",
@@ -26,12 +27,13 @@ end
 
 local function is_multibyte(ch)
     local byte = ch:byte()
-    return (208 == byte) or (209 == byte)
+    return (195 == byte) or (208 == byte) or (209 == byte)
 end
 
 table_merge(characters, base_chars)
 table_merge(characters, digits)
 table_merge(characters, special_chars)
+table_merge(characters, german_chars)
 table_merge(characters, cyrillic_chars)
 
 local create_alias = true
@@ -135,7 +137,7 @@ minetest.register_node(
                 local mb = is_multibyte(ch)
                 local key = mb and (ch:byte(1) .. ch:byte(2)) or ch:byte()
                 for _, v in pairs(characters) do
-                    if v == fields.lettername then
+                    if v == ch then
                         local give = {}
                         give[1] = inv:add_item("output", "ehlphabet:" .. key)
                         inputstack:take_item()
