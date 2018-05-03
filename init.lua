@@ -60,6 +60,9 @@ for _, name in ipairs(characters) do
         {
             description = "Ehlphabet Block '" .. name .. "'",
             tiles = {"ehlphabet_" .. file .. ".png"},
+	    paramtype2 = "facedir",      -- neu
+            on_rotate = screwdriver.rotate_simple ,   -- neu
+            is_ground_content = false,   --neu
             groups = {cracky = 3, not_in_creative_inventory = 1, not_in_crafting_guide = 1}
         }
     )
