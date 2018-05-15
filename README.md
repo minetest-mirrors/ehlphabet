@@ -10,7 +10,7 @@ Fork of the original [abjphabet mod](https://forum.minetest.net/viewtopic.php?f=
 Letter blocks can be created with the Letter Machine or given with /giveme ehlphabet:(ascii decimal)
 
 Example: `/giveme ehlphabet:65` will give you a block with the letter [**A**] on it.
-http://www.asciitable.com/
+https://www.asciitable.com/
 
 For UTF-8 characters add one more identifier /giveme ehlphabet:(first byte decimal)_(second byle decimal)
 
@@ -30,6 +30,7 @@ To customize the look and size of letters, you need to know basic HTML and CSS a
 ## License
 
 Textures are licensed under CC-BY-SA 3.0
+See LICENSE file
 
 ## Changelist
 
@@ -38,3 +39,5 @@ Textures are licensed under CC-BY-SA 3.0
 2018-03-29 support for UTF-8 and cyrillic letters added
 
 2018-03-31 german letters added
+
+2018-04-01 intllib support added with russian and german languages
