@@ -1,6 +1,6 @@
 var page = require('webpage').create();
-var w = 32;
-var h = 32;
+var w = 16;
+var h = 16;
 var con = console;
 
 //viewportSize being the actual size of the headless browser
@@ -25,7 +25,12 @@ var chars = [
   // cyrillic
   "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н",
   "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь",
-  "Э", "Ю", "Я"
+  "Э", "Ю", "Я",
+  // greek
+  "Α", "Β", "Γ", "Δ", "Ε", "Ζ", "Η", "Θ", "Ι", "Κ", "Λ", "Μ", "Ν", "Ξ", "Ο",
+  "Π", "Ρ", "Σ", "Τ", "Υ", "Φ", "Χ", "Ψ", "Ω",
+  // 
+  "猫" , //  neko
 ];
 
 function encode_utf8(s) {
@@ -47,9 +52,13 @@ page.evaluate(function () {
 
   document.body.style.backgroundColor = 'white';
   document.body.style.margin = '0px';
-  chEl.style.fontSize = '24px';
+  chEl.style.fontSize = '12px';    // 16
+//  chEl.style.fontSize = '24px';  // 32
+//  chEl.style.fontSize = '48px';    // 64
   chEl.style.fontWeight = 'bold';
-  chEl.style.marginTop = '2px';
+  chEl.style.marginTop = '1px';     // 16
+//  chEl.style.marginTop = '2px';   // 32
+//  chEl.style.marginTop = '4px';     // 64
   chEl.style.textAlign = 'center';
 });
 

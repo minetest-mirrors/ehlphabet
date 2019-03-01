@@ -13,6 +13,14 @@ local cyrillic_chars = {
     "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь",
     "Э", "Ю", "Я"
 }
+local greek_chars = {
+    "Α", "Β", "Γ", "Δ", "Ε", "Ζ", "Η", "Θ", "Ι", "Κ", "Λ", "Μ", "Ν", "Ξ", "Ο",
+    "Π", "Ρ", "Σ", "Τ", "Υ", "Φ", "Χ", "Ψ", "Ω"
+}
+local additional_chars = {
+    "猫"
+}
+
 local characters = {}
 
 ehlphabet = {}
@@ -31,7 +39,8 @@ end
 
 local function is_multibyte(ch)
     local byte = ch:byte()
-    return (195 == byte) or (208 == byte) or (209 == byte)
+    -- return (195 == byte) or (208 == byte) or (209 == byte)
+    return (byte > 191)
 end
 
 table_merge(characters, base_chars)
@@ -39,6 +48,8 @@ table_merge(characters, digits)
 table_merge(characters, special_chars)
 table_merge(characters, german_chars)
 table_merge(characters, cyrillic_chars)
+table_merge(characters, greek_chars)
+table_merge(characters, additional_chars)
 
 local create_alias = true
 
@@ -196,5 +207,17 @@ minetest.register_craft({
     recipe = {"ehlphabet:block"},
     type = "shapeless"
 })
+
+-- 
+minetest.register_craft({
+    output = "ehlphabet:231140 4",
+    recipe = {
+        {"", "", ""},
+        {"ehlphabet:78", "", ""},
+        {"ehlphabet:69", "ehlphabet:75", "ehlphabet:79"}
+    }
+})
+
+
 
 -- print(S("[MOD] Elphabet is loaded"))
