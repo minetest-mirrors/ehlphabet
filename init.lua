@@ -40,7 +40,11 @@ end
 local function is_multibyte(ch)
     local byte = ch:byte()
     -- return (195 == byte) or (208 == byte) or (209 == byte)
-    return (byte > 191)
+    if not byte then
+       return false
+    else
+       return (byte > 191)
+    end
 end
 
 table_merge(characters, base_chars)
