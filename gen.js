@@ -1,6 +1,6 @@
 var page = require('webpage').create();
-var w = 16;
-var h = 16;
+var w = 64;  // 16,32,64
+var h = 64;
 var con = console;
 
 //viewportSize being the actual size of the headless browser
@@ -31,6 +31,11 @@ var chars = [
   "Π", "Ρ", "Σ", "Τ", "Υ", "Φ", "Χ", "Ψ", "Ω",
   // 
   "猫" , //  neko
+  "北", //   (North, U+5317), pronounced běi
+  "东", //   (East, Simplified, U+4E1C), pronounced dōng
+  "東", //   (East, Traditional, U+6771), pronounced dōng
+  "南", //   (South, U+5357), pronounced nán
+  "西", //   (West, U+897F), pronounced xī
 ];
 
 function encode_utf8(s) {
@@ -52,13 +57,13 @@ page.evaluate(function () {
 
   document.body.style.backgroundColor = 'white';
   document.body.style.margin = '0px';
-  chEl.style.fontSize = '12px';    // 16
+//  chEl.style.fontSize = '12px';    // 16
 //  chEl.style.fontSize = '24px';  // 32
-//  chEl.style.fontSize = '48px';    // 64
+  chEl.style.fontSize = '48px';    // 64
   chEl.style.fontWeight = 'bold';
-  chEl.style.marginTop = '1px';     // 16
+//  chEl.style.marginTop = '1px';     // 16
 //  chEl.style.marginTop = '2px';   // 32
-//  chEl.style.marginTop = '4px';     // 64
+  chEl.style.marginTop = '4px';     // 64
   chEl.style.textAlign = 'center';
 });
 

@@ -18,7 +18,7 @@ local greek_chars = {
     "Π", "Ρ", "Σ", "Τ", "Υ", "Φ", "Χ", "Ψ", "Ω"
 }
 local additional_chars = {
-    "猫"
+    "猫","北","东","東","南","西",
 }
 
 local characters = {}
@@ -212,7 +212,7 @@ minetest.register_craft({
     type = "shapeless"
 })
 
--- 
+-- Chinese Characters - craft from latin characters
 minetest.register_craft({
     output = "ehlphabet:231140 4",
     recipe = {
@@ -221,6 +221,55 @@ minetest.register_craft({
         {"ehlphabet:69", "ehlphabet:75", "ehlphabet:79"}
     }
 })
+
+minetest.register_craft({
+    output = "ehlphabet:229140 5",
+    recipe = {
+        {"ehlphabet:78", "ehlphabet:79", "ehlphabet:82"},
+        {"ehlphabet:84", "ehlphabet:72", ""},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:228184 5",
+    recipe = {
+        {"ehlphabet:69", "ehlphabet:65", "ehlphabet:83"},
+        {"ehlphabet:84", "", "ehlphabet:83"},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:230157 5",
+    recipe = {
+        {"ehlphabet:69", "ehlphabet:65", "ehlphabet:83"},
+        {"ehlphabet:84", "", "ehlphabet:84"},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:229141 5",
+    recipe = {
+        {"ehlphabet:83", "ehlphabet:79", "ehlphabet:85"},
+        {"ehlphabet:84", "ehlphabet:72", ""},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:232165 4",
+    recipe = {
+        {"ehlphabet:87", "ehlphabet:69", "ehlphabet:83"},
+        {"ehlphabet:84", "", ""},
+        {"", "", ""},
+    }
+})
+
+
+
+
 
 
 
