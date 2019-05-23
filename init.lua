@@ -18,7 +18,7 @@ local greek_chars = {
     "Π", "Ρ", "Σ", "Τ", "Υ", "Φ", "Χ", "Ψ", "Ω"
 }
 local additional_chars = {
-    "猫","北","东","東","南","西",
+    "猫","北","东","東","南","西","站",
 }
 
 local characters = {}

@@ -36,6 +36,7 @@ var chars = [
   "東", //   (East, Traditional, U+6771), pronounced dōng
   "南", //   (South, U+5357), pronounced nán
   "西", //   (West, U+897F), pronounced xī
+  "站", //   (Station, U+7AD9  )
 ];
 
 function encode_utf8(s) {
