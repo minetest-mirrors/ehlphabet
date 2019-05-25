@@ -267,6 +267,14 @@ minetest.register_craft({
     }
 })
 
+minetest.register_craft({
+    output = "ehlphabet:231171 7",
+    recipe = {
+        {"ehlphabet:83", "ehlphabet:84", "ehlphabet:65"},
+        {"ehlphabet:84", "ehlphabet:73", "ehlphabet:79"},
+        {"ehlphabet:78", "", ""},
+    }
+})
 
 
 
