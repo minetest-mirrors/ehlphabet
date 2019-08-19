@@ -95,6 +95,32 @@ for _, name in ipairs(characters) do
     if name == "Z" then
         create_alias = false
     end
+
+    minetest.register_node(
+        key.."_sticker",
+        {
+            description = desc.."Sticker",
+            tiles = {"ehlphabet_" .. file .. ".png"},
+            paramtype = "light",
+            paramtype2 = "wallmounted", -- "colorwallmounted",      
+            on_rotate = screwdriver.rotate_simple ,   
+            drawtype = "nodebox",
+            is_ground_content = false,   
+            drop = "",  -- new
+  	    node_box = {
+			type = "wallmounted",
+			wall_bottom = {-0.5, -0.5, -0.5, 0.5, -0.49, 0.5},
+			wall_top = {-0.5, 0.49, -0.5, 0.5, 0.5, 0.5},
+			wall_side = {-0.5, -0.5, -0.5, -0.49, 0.5, 0.5},
+                },
+            groups = {attached_node = 1, dig_immediate = 2,  
+                         not_in_creative_inventory = 1, 
+			 not_blocking_trains = 1 },
+        }
+    )
+
+
+
 end
 
 minetest.register_node(
@@ -153,18 +179,29 @@ minetest.register_node(
             local meta = minetest.env:get_meta(pos)
             local inv = meta:get_inventory()
             local inputstack = inv:get_stack("input", 1)
+            local outputstack = inv:get_stack("output", 1)
             local ch = fields.lettername
 
-            if ch ~= nil and inputstack:get_name() == "ehlphabet:block" then
-                local mb = is_multibyte(ch)
-                local key = mb and (ch:byte(1) .. ch:byte(2)) or ch:byte()
-                for _, v in pairs(characters) do
-                    if v == ch then
-                        local give = {}
-                        give[1] = inv:add_item("output", "ehlphabet:" .. key)
-                        inputstack:take_item()
-                        inv:set_stack("input", 1, inputstack)
-                        break
+            if ch ~= nil and ch ~= "" then
+                if  inputstack:get_name() == "ehlphabet:block" 
+                 or inputstack:get_name() == "default:paper" then
+                    local ost = outputstack:get_name()
+                    local mb = is_multibyte(ch)
+                    local key = mb and (ch:byte(1) .. ch:byte(2)) or ch:byte()
+                    key = key .. (inputstack:get_name() == "default:paper" and "_sticker" or "")
+                    if ost ~= "" and
+                       ost ~= "ehlphabet:"..key then
+                        --  other type in output slot -> abort
+                        return 
+                    end
+                    for _, v in pairs(characters) do
+                        if v == ch then
+                            local give = {}
+                            give[1] = inv:add_item("output", "ehlphabet:" .. key)
+                            inputstack:take_item()
+                            inv:set_stack("input", 1, inputstack)
+                            break
+                        end
                     end
                 end
             end
