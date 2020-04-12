@@ -22,6 +22,7 @@ local additional_chars = {
 }
 
 local characters = {}
+local characters_sticker = {}
 
 ehlphabet = {}
 ehlphabet.path = minetest.get_modpath(minetest.get_current_modname())
@@ -54,6 +55,9 @@ table_merge(characters, german_chars)
 table_merge(characters, cyrillic_chars)
 table_merge(characters, greek_chars)
 table_merge(characters, additional_chars)
+
+table_merge(characters_sticker, characters)
+table.insert(characters_sticker, " ")
 
 local create_alias = true
 
@@ -122,6 +126,37 @@ for _, name in ipairs(characters) do
 
 
 end
+
+-- empty sticker
+
+local key = "ehlphabet:32"
+local file = ("%03d"):format(32)
+local desc = S("Ehlphabet Block '@1'", name)
+
+minetest.register_node(
+ key.."_sticker",
+ {
+    description = desc.."Sticker",
+    tiles = {"ehlphabet_000.png"},
+    paramtype = "light",
+    paramtype2 = "wallmounted", -- "colorwallmounted",      
+    on_rotate = screwdriver.rotate_simple ,   
+    drawtype = "nodebox",
+    is_ground_content = false,   
+    drop = "",  -- new
+    node_box = {
+       type = "wallmounted",
+       wall_bottom = {-0.5, -0.5, -0.5, 0.5, -0.49, 0.5},
+       wall_top = {-0.5, 0.49, -0.5, 0.5, 0.5, 0.5},
+       wall_side = {-0.5, -0.5, -0.5, -0.49, 0.5, 0.5},
+    },
+    groups = {attached_node = 1, dig_immediate = 2,  
+       not_in_creative_inventory = 1, 
+       not_blocking_trains = 1 },
+ }
+)
+
+
 
 minetest.register_node(
     "ehlphabet:machine",
@@ -194,7 +229,11 @@ minetest.register_node(
                         --  other type in output slot -> abort
                         return 
                     end
-                    for _, v in pairs(characters) do
+                    local clist = characters
+                    if inputstack:get_name() == "default:paper" then
+		       clist = characters_sticker
+		    end
+                    for _, v in pairs(clist) do
                         if v == ch then
                             local give = {}
                             give[1] = inv:add_item("output", "ehlphabet:" .. key)
