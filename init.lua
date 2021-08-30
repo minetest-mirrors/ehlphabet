@@ -86,10 +86,10 @@ for _, name in ipairs(characters) do
 	    paramtype2 = "facedir",      -- neu
             on_rotate = screwdriver.rotate_simple ,   -- neu
             is_ground_content = false,   --neu
-            groups = {cracky = 3, not_in_creative_inventory = 1, not_in_crafting_guide = 1}
+            groups = {cracky = 3, not_in_creative_inventory = 1, not_in_crafting_guide = 1, ehlphabet_block = 1}
         }
     )
-    minetest.register_craft({type = "shapeless", output = "ehlphabet:block", recipe = {key}})
+--    minetest.register_craft({type = "shapeless", output = "ehlphabet:block", recipe = {key}})
 
     if create_alias then
         minetest.register_alias("abjphabet:" .. name, key)
@@ -126,6 +126,10 @@ for _, name in ipairs(characters) do
 
 
 end
+
+minetest.register_craft({type = "shapeless", output = "ehlphabet:block", recipe = {"group:ehlphabet_block"}})
+
+
 
 -- empty sticker
 
