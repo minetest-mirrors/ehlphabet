@@ -54,79 +54,89 @@ table_merge(characters, special_chars)
 table_merge(characters, german_chars)
 table_merge(characters, cyrillic_chars)
 table_merge(characters, greek_chars)
-table_merge(characters, additional_chars)
 
 table_merge(characters_sticker, characters)
+table_merge(characters_sticker, additional_chars)
 table.insert(characters_sticker, " ")
 
 local create_alias = true
 
 -- generate all available blocks
-for _, name in ipairs(characters) do
-    local desc = S("Ehlphabet Block '@1'", name)
-    local byte = name:byte()
-    local mb = is_multibyte(name)
-    local file, key
+local function generate(characters, craftable)
+    for _, name in ipairs(characters) do
+        local desc = S("Ehlphabet Block '@1'", name)
+        local byte = name:byte()
+        local mb = is_multibyte(name)
+        local file, key
 
-    if mb then
-        mb = byte
-        byte = name:byte(2)
-        key = "ehlphabet:" .. mb .. byte
-        file = ("%03d_%03d"):format(mb, byte)
-    else
-        key = "ehlphabet:" .. byte
-        file = ("%03d"):format(byte)
-    end
+        if mb then
+            mb = byte
+            byte = name:byte(2)
+            key = "ehlphabet:" .. mb .. byte
+            file = ("%03d_%03d"):format(mb, byte)
+        else
+            key = "ehlphabet:" .. byte
+            file = ("%03d"):format(byte)
+        end
 
-    minetest.register_node(
-        key,
-        {
-            description = desc,
-            tiles = {"ehlphabet_" .. file .. ".png"},
-	    paramtype2 = "facedir",      -- neu
-            on_rotate = screwdriver.rotate_simple ,   -- neu
-            is_ground_content = false,   --neu
-            groups = {cracky = 3, not_in_creative_inventory = 1, not_in_crafting_guide = 1, ehlphabet_block = 1}
-        }
-    )
---    minetest.register_craft({type = "shapeless", output = "ehlphabet:block", recipe = {key}})
+        minetest.register_node(
+            key,
+            {
+                description = desc,
+                tiles = {"ehlphabet_" .. file .. ".png"},
+            paramtype2 = "facedir",      -- neu
+                on_rotate = screwdriver.rotate_simple ,   -- neu
+                is_ground_content = false,   --neu
+                groups = {
+                    cracky = 3,
+                    not_in_creative_inventory = craftable and 0 or 1,
+                    not_in_crafting_guide = craftable and 0 or 1,
+                    ehlphabet_block = 1
+                }
+            }
+        )
+    --    minetest.register_craft({type = "shapeless", output = "ehlphabet:block", recipe = {key}})
 
-    if create_alias then
-        minetest.register_alias("abjphabet:" .. name, key)
-    end
+        if create_alias then
+            minetest.register_alias("abjphabet:" .. name, key)
+        end
 
-    -- deactivate alias creation on last latin character
-    if name == "Z" then
-        create_alias = false
-    end
+        -- deactivate alias creation on last latin character
+        if name == "Z" then
+            create_alias = false
+        end
 
-    minetest.register_node(
-        key.."_sticker",
-        {
-            description = desc.."Sticker",
-            tiles = {"ehlphabet_" .. file .. ".png"},
-            paramtype = "light",
-            paramtype2 = "wallmounted", -- "colorwallmounted",      
-            on_rotate = screwdriver.rotate_simple ,   
-            drawtype = "nodebox",
-            is_ground_content = false,   
-            drop = "",  -- new
-  	    node_box = {
-			type = "wallmounted",
-			wall_bottom = {-0.5, -0.5, -0.5, 0.5, -0.49, 0.5},
-			wall_top = {-0.5, 0.49, -0.5, 0.5, 0.5, 0.5},
-			wall_side = {-0.5, -0.5, -0.5, -0.49, 0.5, 0.5},
+        minetest.register_node(
+            key.."_sticker",
+            {
+                description = desc.."Sticker",
+                tiles = {"ehlphabet_" .. file .. ".png"},
+                paramtype = "light",
+                paramtype2 = "wallmounted", -- "colorwallmounted",
+                on_rotate = screwdriver.rotate_simple ,
+                drawtype = "nodebox",
+                is_ground_content = false,
+                drop = "",  -- new
+            node_box = {
+                type = "wallmounted",
+                wall_bottom = {-0.5, -0.5, -0.5, 0.5, -0.49, 0.5},
+                wall_top = {-0.5, 0.49, -0.5, 0.5, 0.5, 0.5},
+                wall_side = {-0.5, -0.5, -0.5, -0.49, 0.5, 0.5},
+                    },
+                groups = {
+                    attached_node = 1,
+                    dig_immediate = 2,
+                    not_in_creative_inventory = craftable and 0 or 1,
+                    not_in_crafting_guide = craftable and 0 or 1,
+                    not_blocking_trains = 1
                 },
-            groups = {attached_node = 1, dig_immediate = 2,  
-                         not_in_creative_inventory = 1, 
-			 not_blocking_trains = 1 },
-        }
-    )
+            }
+        )
 
-
-
+    end
 end
-
+generate(characters)
+generate(additional_chars, true)
 minetest.register_craft({type = "shapeless", output = "ehlphabet:block", recipe = {"group:ehlphabet_block"}})
 
 
@@ -143,10 +153,10 @@ minetest.register_node(
     description = desc.."Sticker",
     tiles = {"ehlphabet_000.png"},
     paramtype = "light",
-    paramtype2 = "wallmounted", -- "colorwallmounted",      
-    on_rotate = screwdriver.rotate_simple ,   
+    paramtype2 = "wallmounted", -- "colorwallmounted",
+    on_rotate = screwdriver.rotate_simple ,
     drawtype = "nodebox",
-    is_ground_content = false,   
+    is_ground_content = false,
     drop = "",  -- new
     node_box = {
        type = "wallmounted",
@@ -154,8 +164,8 @@ minetest.register_node(
        wall_top = {-0.5, 0.49, -0.5, 0.5, 0.5, 0.5},
        wall_side = {-0.5, -0.5, -0.5, -0.49, 0.5, 0.5},
     },
-    groups = {attached_node = 1, dig_immediate = 2,  
-       not_in_creative_inventory = 1, 
+    groups = {attached_node = 1, dig_immediate = 2,
+       not_in_creative_inventory = 1,
        not_blocking_trains = 1 },
  }
 )
@@ -222,7 +232,7 @@ minetest.register_node(
             local ch = fields.lettername
 
             if ch ~= nil and ch ~= "" then
-                if  inputstack:get_name() == "ehlphabet:block" 
+                if  inputstack:get_name() == "ehlphabet:block"
                  or inputstack:get_name() == "default:paper" then
                     local ost = outputstack:get_name()
                     local mb = is_multibyte(ch)
@@ -231,7 +241,7 @@ minetest.register_node(
                     if ost ~= "" and
                        ost ~= "ehlphabet:"..key then
                         --  other type in output slot -> abort
-                        return 
+                        return
                     end
                     local clist = characters
                     if inputstack:get_name() == "default:paper" then
@@ -356,9 +366,72 @@ minetest.register_craft({
     }
 })
 
+-- stickers
+minetest.register_craft({
+    output = "ehlphabet:231140_sticker 4",
+    recipe = {
+        {"", "", ""},
+        {"ehlphabet:78_sticker", "", ""},
+        {"ehlphabet:69_sticker", "ehlphabet:75_sticker", "ehlphabet:79_sticker"}
+    }
+})
 
+minetest.register_craft({
+    output = "ehlphabet:229140_sticker 5",
+    recipe = {
+        {"ehlphabet:78_sticker", "ehlphabet:79_sticker", "ehlphabet:82_sticker"},
+        {"ehlphabet:84_sticker", "ehlphabet:72_sticker", ""},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:228184_sticker 5",
+    recipe = {
+        {"ehlphabet:69_sticker", "ehlphabet:65_sticker", "ehlphabet:83_sticker"},
+        {"ehlphabet:84_sticker", "", "ehlphabet:83_sticker"},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:230157_sticker 5",
+    recipe = {
+        {"ehlphabet:69_sticker", "ehlphabet:65_sticker", "ehlphabet:83_sticker"},
+        {"ehlphabet:84_sticker", "", "ehlphabet:84_sticker"},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:229141_sticker 5",
+    recipe = {
+        {"ehlphabet:83_sticker", "ehlphabet:79_sticker", "ehlphabet:85_sticker"},
+        {"ehlphabet:84_sticker", "ehlphabet:72_sticker", ""},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:232165_sticker 4",
+    recipe = {
+        {"ehlphabet:87_sticker", "ehlphabet:69_sticker", "ehlphabet:83_sticker"},
+        {"ehlphabet:84_sticker", "", ""},
+        {"", "", ""},
+    }
+})
+
+minetest.register_craft({
+    output = "ehlphabet:231171_sticker 7",
+    recipe = {
+        {"ehlphabet:83_sticker", "ehlphabet:84_sticker", "ehlphabet:65_sticker"},
+        {"ehlphabet:84_sticker", "ehlphabet:73_sticker", "ehlphabet:79_sticker"},
+        {"ehlphabet:78_sticker", "", ""},
+    }
+})
 
 
 
 
 -- print(S("[MOD] Elphabet is loaded"))
+
