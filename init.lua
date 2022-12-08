@@ -104,7 +104,9 @@ for _, name in ipairs(characters) do
         key.."_sticker",
         {
             description = desc.."Sticker",
-            tiles = {"ehlphabet_" .. file .. ".png"},
+            tiles = { "ehlphabet_" .. file .. ".png",
+		      "ehlphabet_" .. file .. ".png^[transformR180" },
+	    inventory_image = "ehlphabet_" .. file .. ".png",
             paramtype = "light",
             paramtype2 = "wallmounted", -- "colorwallmounted",      
             on_rotate = screwdriver.rotate_simple ,   
