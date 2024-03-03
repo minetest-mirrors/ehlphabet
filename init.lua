@@ -179,6 +179,7 @@ minetest.register_node(
         paramtype = "light",
         paramtype2 = "facedir",
         groups = {cracky = 2},
+        is_ground_content = false,
 
         -- "Can you dig it?" -Cyrus
         can_dig = function(pos, player)
@@ -263,6 +264,7 @@ minetest.register_node(
     {
         description = S("Ehlphabet Block (blank)"),
         tiles = {"ehlphabet_000.png"},
+        is_ground_content = false,
         groups = {cracky = 3}
     }
 )
